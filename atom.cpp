@@ -1,5 +1,7 @@
 #include "atom.h"
 #include "variable.h"
+#include "number.h"
+
 
 string Atom::value(){
     return _value;

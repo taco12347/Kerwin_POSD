@@ -8,6 +8,7 @@
 using std::string;
 
 class Variable;
+class Number;
 
 class Atom {
 public:
