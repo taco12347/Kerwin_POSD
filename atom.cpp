@@ -7,8 +7,12 @@ string Atom::value(){
     return _value;
 }
 
+string Atom::symbol(){
+    return _symbol;
+}
+
 bool Atom::match(Atom atom){
-    return _symbol == atom._symbol;
+    return symbol() == atom.symbol();
 }
 
 bool Atom::match(Variable &variable){

@@ -6,6 +6,10 @@ string Number::value(){
     return _value;
 }
 
+string Number::symbol(){
+    return _symbol;
+}
+
 bool Number::match(Atom atom){
      return false;
 }

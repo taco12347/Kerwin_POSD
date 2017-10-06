@@ -6,7 +6,7 @@ string Variable::value(){return _value;}
 bool Variable::match(Atom atom){
     bool ret = _assignable;
     if(_assignable){
-      _value = atom._symbol;
+      _value = atom.symbol();
       _assignable = false;
     }
     else{
