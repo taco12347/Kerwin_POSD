@@ -4,25 +4,21 @@
 #include <string>
 #include "variable.h"
 #include "atom.h"
+#include "term.h"
 
-using std::string;
-
-class Atom;
-class Variable;
-
-class Number {
+class Number : public Term {
     public:
-        Number(int value):_value(std::to_string(value)) { _symbol = std::to_string(value);}
-        bool match(Atom atom);
-        bool match(Variable &variable);
-        bool match(Number number);
+        Number(double value):_value(std::to_string(value)) { _symbol = std::to_string(value);}
+        bool match(Atom *atom);
+        bool match(Variable *variable);
+        bool match(Number *number);
+        bool match(Term* term){};
         string value();
         string symbol();
 
     private:
         string _value;
         string _symbol;
-
 };
 
 #endif
