@@ -15,7 +15,8 @@ class Struct : public Term{
         std::string value();
         bool match(Number *number){};
         bool match(Atom *atom);
-        bool match(Term *term);
+        bool match(Term *term){};
+        bool match(Struct struc);
         Atom name();
         Term* args(int index);
         int getTermSize();

@@ -22,15 +22,14 @@ std::string Struct::symbol(){
 
 
 
-bool Struct::match(Term *term){
-    Struct *st = dynamic_cast<Struct *>(term);
+bool Struct::match(Struct struc){
     bool judgement = true;
-    if(_name.symbol() != st->name().symbol()) judgement = false;
+    if(_name.symbol() != struc.name().symbol()) judgement = false;
     else{
-        if( getTermSize() != st->getTermSize()) judgement = false;
+        if( getTermSize() != struc.getTermSize()) judgement = false;
         else{
             for(int i=0; i<getTermSize(); i++){
-                if(_term[i]->value() != st->args(i)->value()){
+                if(_term[i]->value() != struc.args(i)->value()){
                     judgement = false;
                     break;
                 }
