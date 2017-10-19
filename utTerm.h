@@ -11,12 +11,12 @@
 //test Number.value()
 TEST (Number,ctor) {
     Number number1(25);
-    ASSERT_EQ("25.000000",number1.value());
+    ASSERT_EQ("25",number1.value());
 }
 //test Number.symbol()
 TEST (Number, symbol) {
     Number number1(25);
-    ASSERT_EQ("25.000000", number1.symbol());
+    ASSERT_EQ("25", number1.symbol());
 }
 //?- 25=25.
 //true.

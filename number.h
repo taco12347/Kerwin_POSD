@@ -11,7 +11,11 @@ class Variable;
 
 class Number : public Term {
     public:
-        Number(double value):_value(std::to_string(value)) { _symbol = std::to_string(value);}
+        Number(double value):_value(std::to_string(value)) {
+             _value.erase(_value.find_last_not_of('0') + 1, std::string::npos);
+             _value.erase(_value.find_last_not_of('.') + 1, std::string::npos);
+             _symbol = _value;
+        }
         bool match(Variable &variable);
         bool match(Term &term);
         string value();
