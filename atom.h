@@ -6,13 +6,14 @@
 #include "variable.h"
 #include "term.h"
 
+class Number;
+class Variable;
+
 class Atom : public Term {
 public:
     Atom (string s):_symbol(s){ _value = s;}
-    bool match(Atom *atom);
-    bool match(Variable *variable);
-    bool match(Number *number);
-    bool match(Term* term){};
+    bool match(Term &term);
+    bool match(Variable &variable);
     string value();
     string symbol();
 private:

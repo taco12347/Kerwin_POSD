@@ -13,10 +13,7 @@ class Struct : public Term{
         Struct(Atom atom, std::vector<Term *> term): _name(atom), _term(term){}
         std::string symbol();
         std::string value();
-        bool match(Number *number){};
-        bool match(Atom *atom);
-        bool match(Term *term){};
-        bool match(Struct struc);
+        bool match(Term &term);
         Atom name();
         Term* args(int index);
         int getTermSize();

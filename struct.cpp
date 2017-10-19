@@ -22,24 +22,26 @@ std::string Struct::symbol(){
 
 
 
-bool Struct::match(Struct struc){
+bool Struct::match(Term &term){
+    Struct *struc = dynamic_cast<Struct *>(&term);
     bool judgement = true;
-    if(_name.symbol() != struc.name().symbol()) judgement = false;
-    else{
-        if( getTermSize() != struc.getTermSize()) judgement = false;
+    if(struc != NULL){
+        if(_name.symbol() != struc->name().symbol()) judgement = false;
         else{
-            for(int i=0; i<getTermSize(); i++){
-                if(_term[i]->value() != struc.args(i)->value()){
-                    judgement = false;
-                    break;
+            if( getTermSize() != struc->getTermSize()) judgement = false;
+            else{
+                for(int i=0; i<getTermSize(); i++){
+                    if(_term[i]->value() != struc->args(i)->value()){
+                        judgement = false;
+                        break;
+                    }
                 }
             }
         }
     }
+    else judgement = false;
     return judgement;
 }
-
-bool Struct::match(Atom *atom){return false;}
 
 std::string Struct::value(){
     string description;

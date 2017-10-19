@@ -16,7 +16,7 @@ TEST(Variable, constructor){
 TEST(Variable , matching){
   Atom tom("tom");
   Variable X("X");
-  X.match(&tom);
+  X.match(tom);
   ASSERT_EQ( "tom", X.value());
 }
 
@@ -24,8 +24,8 @@ TEST (Variable , haveValue){
   Atom tom ("tom");
   Atom jerry ("jerry");
   Variable X("X");
-  ASSERT_TRUE(X.match(&tom));
-  ASSERT_FALSE(X.match(&jerry));
+  ASSERT_TRUE(X.match(tom));
+  ASSERT_FALSE(X.match(jerry));
 }
 
 // ?- X=2.7182.
@@ -33,7 +33,7 @@ TEST (Variable , haveValue){
 TEST(Variable , numE_to_varX){
     Variable X("X");
     Number number1(2.7182);
-    ASSERT_TRUE(X.match(&number1));
+    ASSERT_TRUE(X.match(number1));
 }
 
 // ?- X=Y, X=1.
@@ -42,8 +42,8 @@ TEST (Variable, varY_to_varX_and_num1_to_varX) {
     Variable X("X");
     Variable Y("Y");
     Number number1(1);
-    X.match(&Y);
-    ASSERT_TRUE(X.match(&number1));
+    X.match(Y);
+    ASSERT_TRUE(X.match(number1));
     ASSERT_EQ("1.000000", Y.value());
 }
 
@@ -53,8 +53,8 @@ TEST (Variable, varY_to_varX_and_num1_to_varY) {
     Variable X("X");
     Variable Y("Y");
     Number number1(1);
-    X.match(&Y);
-    ASSERT_TRUE(Y.match(&number1));
+    X.match(Y);
+    ASSERT_TRUE(Y.match(number1));
     ASSERT_EQ("1.000000", X.value());
 }
 
@@ -62,9 +62,9 @@ TEST (Variable, varY_to_varX_and_num1_to_varY) {
 // X=1
 TEST (Variable, varX_match_varX_and_num1_to_varX) {
     Variable X("X");
-    X.match(&X);
+    X.match(X);
     Number number1(1);
-    ASSERT_TRUE(X.match(&number1));
+    ASSERT_TRUE(X.match(number1));
     ASSERT_EQ("1.000000", X.value());
 }
 
@@ -74,8 +74,8 @@ TEST (Variable, num1_to_varY_and_varX_match_varY) {
     Variable X("X");
     Variable Y("Y");
     Number number1(1);
-    ASSERT_TRUE(Y.match(&number1));
-    X.match(&Y);
+    ASSERT_TRUE(Y.match(number1));
+    X.match(Y);
     ASSERT_EQ("1.000000", X.value());
 }
 
@@ -86,9 +86,9 @@ TEST (Variable, num1_to_varZ_to_varY_to_varX) {
     Variable Y("Y");
     Variable Z("Z");
     Number number1(1);
-    X.match(&Y);
-    Y.match(&Z);
-    ASSERT_TRUE(Z.match(&number1));
+    X.match(Y);
+    Y.match(Z);
+    ASSERT_TRUE(Z.match(number1));
     ASSERT_EQ("1.000000", X.value());
     ASSERT_EQ("1.000000", Y.value());
     ASSERT_EQ("1.000000", Z.value());
@@ -101,9 +101,9 @@ TEST (Variable, num1_to_varZ_to_varX_and_varY_to_varX) {
     Variable Y("Y");
     Variable Z("Z");
     Number number1(1);
-    X.match(&Y);
-    X.match(&Z);
-    ASSERT_TRUE(Z.match(&number1));
+    X.match(Y);
+    X.match(Z);
+    ASSERT_TRUE(Z.match(number1));
     ASSERT_EQ("1.000000", X.value());
     ASSERT_EQ("1.000000", Y.value());
     ASSERT_EQ("1.000000", Z.value());
@@ -119,7 +119,7 @@ TEST (Variable, Struct1) {
     std::vector<Term *> v = {&X};
     Struct s(Atom("s"), v);
     Variable Y("Y");
-    Y.match(&s);
+    Y.match(s);
     ASSERT_EQ("Y", Y.symbol());
     ASSERT_EQ("s(X)", Y.value());
 }
@@ -135,9 +135,9 @@ TEST (Variable, Struct2) {
     std::vector<Term *> v = {&X};
     Struct s(Atom("s"), v);
     Variable Y("Y");
-    Y.match(&s);
+    Y.match(s);
     Atom atom1("teddy");
-    X.match(&atom1);
+    X.match(atom1);
     ASSERT_EQ("Y", Y.symbol());
     ASSERT_EQ("s(teddy)", Y.value());
 }

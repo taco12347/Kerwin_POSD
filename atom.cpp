@@ -11,22 +11,18 @@ string Atom::symbol(){
     return _symbol;
 }
 
-bool Atom::match(Atom *atom){
-    return symbol() == atom->symbol();
+bool Atom::match(Term &term){
+    return _value == term.value();
 }
 
-bool Atom::match(Variable *variable){
-    if(variable->getAssignable()){
-        variable->setValue(this);
-        variable->setAssignable(false);
+bool Atom::match(Variable &variable){
+    if(variable.getAssignable()){
+        variable.setValue(this);
         return true;
     }
     else{
-        return value() == variable->value();
+        return value() == variable.value();
     }
 }
 
-bool Atom::match(Number *number){
-    return false;
-}
 

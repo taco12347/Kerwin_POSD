@@ -6,13 +6,14 @@
 #include "atom.h"
 #include "term.h"
 
+class Atom;
+class Variable;
+
 class Number : public Term {
     public:
         Number(double value):_value(std::to_string(value)) { _symbol = std::to_string(value);}
-        bool match(Atom *atom);
-        bool match(Variable *variable);
-        bool match(Number *number);
-        bool match(Term* term){};
+        bool match(Variable &variable);
+        bool match(Term &term);
         string value();
         string symbol();
 

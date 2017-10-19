@@ -76,7 +76,7 @@ TEST(Struct, match5)
   Atom chaseMouse("chaseMouse");
   std::vector<Term *> v = {&tom, &chaseMouse};
   Struct hobby(Atom("hobby"), v);
-  EXPECT_FALSE(hobby.match(&tom));
+  EXPECT_FALSE(hobby.match(tom));
 }
 
 // When Struct s contains a Variable X
@@ -99,7 +99,7 @@ TEST(Struct, var_match_atom)
 {
     Variable variable1("X");
     Atom atom1("tom");
-    variable1.match(&atom1);
+    variable1.match(atom1);
     std::vector<Term *> v = {&variable1};
     Struct s(Atom("s"), v);
     EXPECT_EQ("s(X)", s.symbol());
@@ -131,7 +131,7 @@ TEST(Struct, nested_struct2)
 {
     Variable variable1("X");
     Atom atom1("tom");
-    variable1.match(&atom1);
+    variable1.match(atom1);
     std::vector<Term *> v = {&variable1};
     Struct s2(Atom("s2"), v);
     std::vector<Term *> v2 = {&s2};
@@ -149,7 +149,7 @@ TEST(Struct, nested_struct3)
 {
     Variable variable1("X");
     Number number1(3.14);
-    variable1.match(&number1);
+    variable1.match(number1);
     std::vector<Term *> v = {&variable1};
     Struct s2(Atom("s2"), v);
     std::vector<Term *> v2 = {&s2};
@@ -170,8 +170,8 @@ TEST(Struct, nested_struct_and_multiVariable)
     Variable variable1("X");
     Atom atom1("kent_beck");
     Variable variable2("Y");
-    variable1.match(&variable2);
-    variable1.match(&atom1);
+    variable1.match(variable2);
+    variable1.match(atom1);
     std::vector<Term *> v = {&variable2};
     Struct s2(Atom("s2"), v);
     std::vector<Term *> v2 = {&s2, &variable1};
