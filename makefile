@@ -1,15 +1,15 @@
 #INC_DIR = include
 
-all: hw3
+all: hw4
 
-mainTerm.o: mainTerm.cpp utStruct.h utVariable.h
+mainTerm.o: mainTerm.cpp utStruct.h utVariable.h utList.h
 	g++ -std=gnu++0x -c mainTerm.cpp 
 
-hw3: mainTerm.o term.o atom.o variable.o number.o struct.o
+hw4: mainTerm.o term.o atom.o variable.o number.o struct.o list.o
 ifeq (${OS}, Windows_NT)
-	g++ -o hw3 mainTerm.o term.o atom.o variable.o number.o struct.o -lgtest
+	g++ -o hw4 mainTerm.o term.o atom.o variable.o number.o struct.o list.o -lgtest
 else
-	g++ -o hw3 mainTerm.o term.o atom.o variable.o number.o struct.o -lgtest -lpthread
+	g++ -o hw4 mainTerm.o term.o atom.o variable.o number.o struct.o list.o -lgtest -lpthread
 endif
 
 term.o: term.h term.cpp
@@ -22,7 +22,9 @@ number.o: number.h number.cpp
 	g++ -std=gnu++0x -c number.cpp
 struct.o: struct.h struct.cpp
 	g++ -std=gnu++0x -c struct.cpp
+list.o : list.h list.cpp
+	g++ -std=gnu++0x -c list.cpp
 
 
 clean:
-	rm -f *.o hw3 mainTerm utStruct utVariable
+	rm -f *.o hw4 mainTerm utStruct utVariable utList
