@@ -9,7 +9,7 @@ using std::vector;
 
 class List : public Term {
     public:
-        List(): _elements() {}
+        List(){}
         List(vector<Term *> const & elements):_elements(elements){}
         string symbol();
         string value();

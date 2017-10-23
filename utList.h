@@ -15,6 +15,8 @@ using std::string;
 TEST (List, constructor) {
     vector<Term *> args = {};
     List l(args);
+    List l2();
+    EXPECT_EQ("[]", l2.symbol());
     EXPECT_EQ("[]", l.symbol());
 }
 
