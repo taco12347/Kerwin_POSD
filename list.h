@@ -9,10 +9,7 @@ using std::vector;
 
 class List : public Term {
     public:
-        List() : _elements(){
-            vector<Term *> v = {};
-            _elements = v;
-        }
+        List():_elements(){}
         List(vector<Term *> const & elements):_elements(elements){}
         string symbol();
         string value();
@@ -20,8 +17,6 @@ class List : public Term {
         Term * head() const;
         List * tail() const;
         Term &getElement(int index);
-        //void setElement(Term *element);
-
     private:
         vector<Term *> _elements;
 };

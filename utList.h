@@ -13,8 +13,7 @@ using std::string;
 // When create a new list without any item
 // Then #symbol() of the list should return "[]"
 TEST (List, constructor) {
-    vector<Term *> args = {};
-    List l(args);
+    List l;
     EXPECT_EQ("[]", l.symbol());
 }
 
