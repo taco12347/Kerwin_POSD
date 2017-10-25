@@ -52,6 +52,21 @@ bool List::match(Term &term){
     }
 }
 
+bool List::match(Variable &variable){
+    if(_elements.size() != 0){
+        for(int i=0; i<_elements.size(); i++){
+            if(_elements[i] == &variable) return false;
+        }
+    }
+    if(variable.getAssignable()){
+        variable.setValue(this);
+        return true;
+    }
+    else{
+        return symbol() == variable.value();
+    }
+}
+
 Term &List::getElement(int index){
     return *_elements[index];
 }

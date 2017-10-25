@@ -96,6 +96,7 @@ TEST(List, matchToVarShouldSucceed) {
     List l(args);
     Variable variable2("Y");
     ASSERT_TRUE(variable2.match(l));
+    ASSERT_TRUE(l.match(variable2));
     EXPECT_EQ(string("[496, X, terence_tao]"), variable2.value());
 }
 

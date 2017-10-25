@@ -4,6 +4,7 @@
 #include "term.h"
 #include <vector>
 #include <string>
+#include "variable.h"
 
 using std::vector;
 
@@ -17,6 +18,7 @@ class List : public Term {
         string symbol();
         string value();
         bool match(Term & term);
+        bool match(Variable &variable);
         Term * head() const;
         List * tail() const;
         Term &getElement(int index);
