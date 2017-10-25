@@ -34,8 +34,8 @@ bool List::match(Term &term){
     }
     else{
         List *tempList = dynamic_cast<List *>(&term);
-        for(int i=0; i<_elements.size(); i++){
-            if(tempList){
+        if(tempList){
+            for(int i=0; i<_elements.size(); i++){
                 if(_elements[i]->symbol() == tempList->getElement(i).symbol()){
                     isTrue = true;
                     continue;
@@ -48,6 +48,7 @@ bool List::match(Term &term){
                 isTrue=false;
             }
         }
+
         return isTrue;
     }
 }
