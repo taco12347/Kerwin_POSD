@@ -48,6 +48,7 @@ bool List::match(Term &term){
                 }
             }
         }
+        else isTrue = false;
         return isTrue;
     }
 }
