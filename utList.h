@@ -9,7 +9,7 @@ using std::string;
 #include "atom.h"
 #include "number.h"
 #include "variable.h"
-/*
+
 // When create a new list without any item
 // Then #symbol() of the list should return "[]"
 TEST (List, constructor) {
@@ -239,7 +239,7 @@ TEST (List, emptyExecptionOfTail) {
         EXPECT_EQ(string("Accessing tail in an empty list"), s);
     }
 }
-*/
+
 
 
 #endif
