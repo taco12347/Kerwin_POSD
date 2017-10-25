@@ -26,7 +26,7 @@ string List::value(){
 }
 
 bool List::match(Term &term){
-    bool isTrue = true;
+    bool isTrue = false;
     if(this == &term) return true;
     else if(_elements.size() == 0){
         _elements.push_back(&term);
