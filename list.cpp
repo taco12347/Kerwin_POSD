@@ -34,21 +34,20 @@ bool List::match(Term &term){
     }
     else{
         List *tempList = dynamic_cast<List *>(&term);
-        if(tempList){
-            for(int i=0; i<_elements.size(); i++){
+        for(int i=0; i<_elements.size(); i++){
+            if(tempList){
                 if(_elements[i]->symbol() == tempList->getElement(i).symbol()){
                     isTrue = true;
                     continue;
                 }
-                if(_elements[i]->match(tempList->getElement(i))){
-                    isTrue = true;
-                }
-                else{
-                    isTrue=false;
-                }
+            }
+            if(_elements[i]->match(tempList->getElement(i))){
+                isTrue = true;
+            }
+            else{
+                isTrue=false;
             }
         }
-        else isTrue = false;
         return isTrue;
     }
 }
