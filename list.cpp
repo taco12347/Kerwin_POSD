@@ -40,15 +40,14 @@ bool List::match(Term &term){
                     isTrue = true;
                     continue;
                 }
-            }
-            if(_elements[i]->match(tempList->getElement(i))){
-                isTrue = true;
-            }
-            else{
-                isTrue=false;
+                if(_elements[i]->match(tempList->getElement(i))){
+                    isTrue = true;
+                }
+                else{
+                    isTrue=false;
+                }
             }
         }
-
         return isTrue;
     }
 }
