@@ -30,7 +30,7 @@ bool Variable::match(Term &term){
  }
 
  bool Variable::getAssignable(){
-    if(_value== NULL) return true;
+    if(_value == NULL) return true;
     else return false;
  }
 
