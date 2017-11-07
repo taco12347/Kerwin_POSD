@@ -1,6 +1,5 @@
 #include "struct.h"
 
-
 Atom Struct::name(){return _name;}
 int Struct::getTermSize(){return _term.size();}
 
@@ -11,6 +10,7 @@ Term* Struct::args(int index){
 std::string Struct::symbol(){
     string description;
     description = _name.symbol() + "(";
+    if(_term.size() == 0) return description + ")";
     for(int i=0; i<_term.size(); i++){
         if(i < _term.size()-1)
             description += _term[i]->symbol() + ", ";
@@ -53,4 +53,8 @@ std::string Struct::value(){
             description += _term[i]->value() + ")";
     }
     return description;
+}
+
+int Struct::arity(){
+    return _term.size();
 }

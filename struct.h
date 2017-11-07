@@ -17,6 +17,7 @@ class Struct : public Term{
         Atom name();
         Term* args(int index);
         int getTermSize();
+        int arity();
     private:
         std::vector<Term *> _term;
         Atom _name;
