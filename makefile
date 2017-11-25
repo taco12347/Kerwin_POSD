@@ -1,26 +1,16 @@
 #INC_DIR = include
 
-all: hw5
+all: hw6
 
-hw5: mainTerm.o term.o atom.o variable.o number.o struct.o list.o parser.o scanner.o
+hw6: mainTerm.o term.o atom.o variable.o number.o struct.o list.o parser.o scanner.o node.o
 ifeq (${OS}, Windows_NT)
-	g++ -o hw5 mainTerm.o term.o atom.o variable.o number.o struct.o list.o parser.o scanner.o -lgtest
+	g++ -o hw6 mainTerm.o term.o atom.o variable.o number.o struct.o list.o parser.o scanner.o node.o -lgtest
 else
-	g++ -o hw5 mainTerm.o term.o atom.o variable.o number.o struct.o list.o parser.o scanner.o -lgtest -lpthread
+	g++ -o hw6 mainTerm.o term.o atom.o variable.o number.o struct.o list.o parser.o scanner.o node.o -lgtest -lpthread
 endif
-
-
 
 mainTerm.o: mainTerm.cpp utTerm.h
 	g++ -std=gnu++0x -c mainTerm.cpp 
-#mainVariable.o: mainVariable.cpp utVariable.h 
-#	g++ -std=c++11 -c mainVariable.cpp
-#mainStruct.o: mainStruct.cpp utStruct.h
-#	g++ -std=gnu++0x -c mainStruct.cpp
-#mainList.o: mainList.cpp utList.h
-#	g++ -std=gnu++0x -c mainList.cpp
-#mainParser.o: mainParser.cpp utParser.h
-#	g++ -std=c++11 -c mainParser.cpp
 
 term.o: term.h term.cpp
 	g++ -std=gnu++0x -c term.cpp
@@ -38,8 +28,10 @@ parser.o : parser.h parser.cpp
 	g++ -std=gnu++0x -c parser.cpp
 scanner.o : scanner.h scanner.cpp
 	g++ -std=gnu++0x -c scanner.cpp
+node.o: node.h node.cpp
+	g++ -std=gnu++0x -c node.cpp
 
 
 
 clean:
-	rm -f *.o hw5 mainTerm utStruct utVariable utList utParser
+	rm -f *.o hw6 mainTerm utStruct utVariable utList utParser

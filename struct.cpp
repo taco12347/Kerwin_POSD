@@ -31,7 +31,7 @@ bool Struct::match(Term &term){
             if( getTermSize() != struc->getTermSize()) judgement = false;
             else{
                 for(int i=0; i<getTermSize(); i++){
-                    if(_term[i]->value() != struc->args(i)->value()){
+                    if(_term[i]->symbol() != struc->args(i)->symbol()){
                         judgement = false;
                         break;
                     }
@@ -42,6 +42,17 @@ bool Struct::match(Term &term){
     else judgement = false;
     return judgement;
 }
+/*
+bool Struct::match(Variable &variable){
+    if(variable.getAssignable()){
+        variable.setValue(this);
+        return true;
+    }
+    else{
+        return symbol() == variable.value();
+    }
+}
+*/
 
 std::string Struct::value(){
     string description;

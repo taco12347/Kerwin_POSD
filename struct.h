@@ -14,6 +14,7 @@ class Struct : public Term{
         std::string symbol();
         std::string value();
         bool match(Term &term);
+        //bool match(Variable &variable);
         Atom name();
         Term* args(int index);
         int getTermSize();

@@ -25,6 +25,14 @@ bool Variable::match(Term &term){
         return true;
     }
     else{
+        Variable *tempVar = dynamic_cast<Variable*>(&term);
+        if(tempVar != nullptr){
+            if(tempVar->getAssignable()){
+                tempVar->setValue(_value);
+                return true;
+            }
+            else _value->match(*tempVar);
+        }
         return _value->match(term);
     }
  }
