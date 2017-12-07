@@ -42,17 +42,7 @@ bool Struct::match(Term &term){
     else judgement = false;
     return judgement;
 }
-/*
-bool Struct::match(Variable &variable){
-    if(variable.getAssignable()){
-        variable.setValue(this);
-        return true;
-    }
-    else{
-        return symbol() == variable.value();
-    }
-}
-*/
+
 
 std::string Struct::value(){
     string description;
@@ -68,4 +58,16 @@ std::string Struct::value(){
 
 int Struct::arity(){
     return _term.size();
+}
+
+Iterator<Term*>* Struct::createIterator(){
+    return new StructIterator<Term*>(this);
+}
+
+Iterator<Term*>* Struct::createDFSIterator(){
+    return new DFSIterator<Term*>(this);
+}
+
+Iterator<Term*>* Struct::createBFSIterator(){
+    return new BFSIterator<Term*>(this);
 }

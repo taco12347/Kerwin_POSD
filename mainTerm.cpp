@@ -1,9 +1,10 @@
 #include <gtest/gtest.h>
-#include "utTerm.h"
-#include "utList.h"
-#include "utStruct.h"
-#include "utVariable.h"
-#include "utParser.h"
+// #include "utTerm.h"
+// #include "utList.h"
+// #include "utStruct.h"
+// #include "utVariable.h"
+// #include "utParser.h"
+#include "utIterator.h"
 
 int main( int argc , char **argv )
 {

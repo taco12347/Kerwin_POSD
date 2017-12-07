@@ -25,4 +25,6 @@ bool Atom::match(Variable &variable){
     }
 }
 
-
+Iterator<Term*>* Atom::createIterator(){
+    return new NullIterator<Term*>(this);
+}

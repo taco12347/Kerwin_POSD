@@ -85,3 +85,23 @@ List *List::tail() const{
     }
     else throw(std::string("Accessing tail in an empty list"));
 }
+
+Iterator<Term*>* List::createIterator(){
+    return new ListIterator<Term*>(this);
+}
+
+Term* List::args(int index){
+    return _elements[index];
+}
+
+int List::arity(){
+    return _elements.size();
+}
+
+Iterator<Term*>* List::createDFSIterator(){
+    return new DFSIterator<Term*>(this);
+}
+
+Iterator<Term*>* List::createBFSIterator(){
+    return new BFSIterator<Term*>(this);
+}

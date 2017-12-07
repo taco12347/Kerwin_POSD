@@ -5,9 +5,15 @@
 #include "variable.h"
 #include "atom.h"
 #include "term.h"
+#include "iterator.h"
+#include "nullIterator.h"
 
 class Atom;
 class Variable;
+template <class T>
+class Iterator;
+template <class T>
+class NullIterator;
 
 class Number : public Term {
     public:
@@ -20,7 +26,7 @@ class Number : public Term {
         bool match(Term &term);
         string value();
         string symbol();
-
+        Iterator<Term*>* createIterator();
     private:
         string _value;
         string _symbol;

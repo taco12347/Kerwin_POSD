@@ -42,3 +42,6 @@ bool Variable::match(Term &term){
     else return false;
  }
 
+Iterator<Term*>* Variable::createIterator(){
+    return new NullIterator<Term*>(this);
+}

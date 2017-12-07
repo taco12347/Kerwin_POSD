@@ -5,6 +5,10 @@
 #include <vector>
 #include <string>
 #include "variable.h"
+#include "iterator.h"
+#include "listIterator.h"
+#include "dfsIterator.h"
+#include "bfsIterator.h"
 
 using std::vector;
 
@@ -22,6 +26,12 @@ class List : public Term {
         Term * head() const;
         List * tail() const;
         Term &getElement(int index);
+        Iterator<Term*>* createIterator();
+        Iterator<Term*>* createDFSIterator();
+        Iterator<Term*>* createBFSIterator();
+        int arity();
+        Term* args(int index);
+
     private:
         vector<Term *> _elements;
 };

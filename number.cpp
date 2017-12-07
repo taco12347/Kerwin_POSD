@@ -22,3 +22,6 @@ bool Number::match(Term &term){
     return value() == term.value();
 }
 
+Iterator<Term*>* Number::createIterator(){
+    return new NullIterator<Term*>(this);
+}

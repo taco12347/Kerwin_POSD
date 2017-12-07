@@ -4,6 +4,7 @@
 #include <string>
 #include "atom.h"
 #include "number.h"
+#include "iterator.h"
 #include "term.h"
 #include <vector>
 
@@ -21,6 +22,7 @@ class Variable : public Term {
         bool match(Term &term);
         void setValue(Term *value);
         bool getAssignable();
+        Iterator<Term*>* createIterator();
     private:
         Term* _value;
 };
