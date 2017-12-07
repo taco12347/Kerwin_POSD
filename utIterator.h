@@ -88,7 +88,17 @@ TEST(iterator, NullIterator){
 }
 
 // s(1, w(X, 5), Y)
-TEST(iterator, structDFSIterator){
+TEST(iterator, structDFSIteratorForFirst){
+  Scanner scanner("s(1, w(X, 5), Y)");
+    Parser parser(scanner);
+    Struct *s = dynamic_cast<Struct*>(parser.createTerm());
+    Iterator<Term*>* it = s->createDFSIterator();
+    it->first();
+    ASSERT_EQ("1", it->currentItem()->symbol());
+    ASSERT_FALSE(it->isDone());
+}
+// s(1, w(X, 5), Y)
+TEST(iterator, structDFSIteratorForTotal){
     Scanner scanner("s(1, w(X, 5), Y)");
     Parser parser(scanner);
     Struct *s = dynamic_cast<Struct*>(parser.createTerm());
@@ -97,10 +107,8 @@ TEST(iterator, structDFSIterator){
     ASSERT_EQ("1", it->currentItem()->symbol());
     it->next();
     ASSERT_EQ("w(X, 5)", it->currentItem()->symbol());
-    ASSERT_FALSE(it->isDone());
     it->next();
     ASSERT_EQ("X", it->currentItem()->symbol());
-    ASSERT_FALSE(it->isDone());
     it->next();
     it->next();
     ASSERT_EQ("Y", it->currentItem()->symbol());
@@ -108,7 +116,18 @@ TEST(iterator, structDFSIterator){
 }
 
 // s(1, w(X, 5), Y)
-TEST(iterator, stuctBFSIterator){
+TEST(iterator, stuctBFSIteratorForFirst){
+    Scanner scanner("s(1, w(X, 5), Y)");
+    Parser parser(scanner);
+    Struct *s = dynamic_cast<Struct*>(parser.createTerm());
+    Iterator<Term*>* it = s->createBFSIterator();
+    it->first();
+    ASSERT_EQ("1", it->currentItem()->symbol());
+    ASSERT_FALSE(it->isDone());
+}
+
+// s(1, w(X, 5), Y)
+TEST(iterator, stuctBFSIteratorForTotal){
     Scanner scanner("s(1, w(X, 5), Y)");
     Parser parser(scanner);
     Struct *s = dynamic_cast<Struct*>(parser.createTerm());
@@ -117,10 +136,8 @@ TEST(iterator, stuctBFSIterator){
     ASSERT_EQ("1", it->currentItem()->symbol());
     it->next();
     ASSERT_EQ("w(X, 5)", it->currentItem()->symbol());
-    ASSERT_FALSE(it->isDone());
     it->next();
     ASSERT_EQ("Y", it->currentItem()->symbol());
-    ASSERT_FALSE(it->isDone());
     it->next();
     it->next();
     ASSERT_EQ("5", it->currentItem()->symbol());
@@ -128,7 +145,18 @@ TEST(iterator, stuctBFSIterator){
 }
 
 // [1, w(X, 5), Y]
-TEST(iterator, listDFSIterator){
+TEST(iterator, listDFSIteratorForFirst){
+    Scanner scanner("[1, w(X, 5), Y]");
+    Parser parser(scanner);
+    List *l = dynamic_cast<List*>(parser.createTerm());
+    Iterator<Term*>* it = l->createDFSIterator();
+    it->first();
+    ASSERT_EQ("1", it->currentItem()->symbol());
+    ASSERT_FALSE(it->isDone());
+}
+
+// [1, w(X, 5), Y]
+TEST(iterator, listDFSIteratorForTotal){
     Scanner scanner("[1, w(X, 5), Y]");
     Parser parser(scanner);
     List *l = dynamic_cast<List*>(parser.createTerm());
@@ -137,10 +165,8 @@ TEST(iterator, listDFSIterator){
     ASSERT_EQ("1", it->currentItem()->symbol());
     it->next();
     ASSERT_EQ("w(X, 5)", it->currentItem()->symbol());
-    ASSERT_FALSE(it->isDone());
     it->next();
     ASSERT_EQ("X", it->currentItem()->symbol());
-    ASSERT_FALSE(it->isDone());
     it->next();
     it->next();
     ASSERT_EQ("Y", it->currentItem()->symbol());
@@ -148,7 +174,18 @@ TEST(iterator, listDFSIterator){
 }
 
 // [1, w(X, 5), Y]
-TEST(iterator, listBFSIterator){
+TEST(iterator, listBFSIteratorForFirst){
+    Scanner scanner("[1, w(X, 5), Y]");
+    Parser parser(scanner);
+    List *l = dynamic_cast<List*>(parser.createTerm());
+    Iterator<Term*>* it = l->createBFSIterator();
+    it->first();
+    ASSERT_EQ("1", it->currentItem()->symbol());
+    ASSERT_FALSE(it->isDone());
+}
+
+// [1, w(X, 5), Y]
+TEST(iterator, listBFSIteratorForTotal){
     Scanner scanner("[1, w(X, 5), Y]");
     Parser parser(scanner);
     List *l = dynamic_cast<List*>(parser.createTerm());
@@ -157,10 +194,8 @@ TEST(iterator, listBFSIterator){
     ASSERT_EQ("1", it->currentItem()->symbol());
     it->next();
     ASSERT_EQ("w(X, 5)", it->currentItem()->symbol());
-    ASSERT_FALSE(it->isDone());
     it->next();
     ASSERT_EQ("Y", it->currentItem()->symbol());
-    ASSERT_FALSE(it->isDone());
     it->next();
     it->next();
     ASSERT_EQ("5", it->currentItem()->symbol());
