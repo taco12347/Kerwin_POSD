@@ -35,11 +35,11 @@ class Scanner {
         int skipLeadingWhiteSpace();
         int position() const;
         char currentChar();
-        // extractX: extract X and set position right after X
         int extractNumber();
         string extractAtom();
         string extractAtomSC();
         string extractVar();
+        string getBuffer();
         char extractChar();
         char watchString(int index);
     private:

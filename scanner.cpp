@@ -53,7 +53,7 @@ int Scanner::extractNumber(){
 
 string Scanner::extractAtom(){
     int posBegin = position();
-    for (;isalnum(buffer[pos]); ++pos);
+    for (;isalnum(buffer[pos]) || buffer[pos] == '_'; ++pos);
     return buffer.substr(posBegin, pos-posBegin);
 }
 
@@ -79,7 +79,7 @@ bool isSpecialCh(char c) {
     return c == '+'
     // || c == '=' // ... the matching operator
     || c == '-'|| c == '*'|| c == '/'
-    || c == '<'|| c == '>'|| c == '.'
+    || c == '<'|| c == '>'
     || c == '&'|| c == '\\'|| c == '~'
     || c == '^'|| c == '$'|| c == '#'
     || c == '@'|| c == '?'|| c == ':';
@@ -101,4 +101,8 @@ bool symbolExist(string s, int & val) {
 
 char Scanner::watchString(int index){
     return buffer[index];
+}
+
+string Scanner::getBuffer(){
+    return buffer;
 }

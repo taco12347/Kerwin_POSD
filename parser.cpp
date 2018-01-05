@@ -18,6 +18,8 @@ Term* Parser::createTerm(){
             if(_currentToken == ')'){
                 return new Struct(*tempAtom, terms);
             }
+            else
+                throw string("Unbalanced operator");
         }
 
         else
@@ -30,44 +32,10 @@ Term* Parser::createTerm(){
             List* l = new List(finalTerm);
             return l;
         }
+        else
+            throw string("Unbalanced operator");
     }
     return nullptr;
-}
-
-void Parser::matchings(){
-    Term* term = createTerm();
-    if(term!=nullptr){
-        if(isCOMMA == 1){
-            Term* findTerm = finding(term);
-            if(findTerm != nullptr) term->match(*findTerm);
-        }
-        _terms.push_back(term);
-        while((_currentToken = _scanner.nextToken()) == ',' ||  _currentToken=='='|| _currentToken == ';') {
-            if (_currentToken == '=') {
-                isCOMMA = 0;
-                Node * left = new Node(TERM, _terms.back(), nullptr, nullptr);
-                _terms.push_back(createTerm());
-                Node * right = new Node(TERM, _terms.back(), nullptr, nullptr);
-                Node * root = new Node(EQUALITY, nullptr, left, right);
-                _expressionTree = root;
-            }
-            else if(_currentToken == ','){
-                isCOMMA = 1;
-                Node * left = _expressionTree;
-                matchings();
-                Node * root = new Node(COMMA, nullptr, left, expressionTree());
-                _expressionTree = root;
-            }
-            else if(_currentToken == ';'){
-                isCOMMA = 0;
-                _newStartIndex = _terms.size();
-                Node * left = _expressionTree;
-                matchings();
-                Node * root = new Node(SEMICOLON, nullptr, left, expressionTree());
-                _expressionTree = root;
-            }
-        }
-    }
 }
 
 Term* Parser::finding(Term *term){
@@ -76,8 +44,12 @@ Term* Parser::finding(Term *term){
             return _terms[index];
         }
         Struct * s = dynamic_cast<Struct*>(_terms[index]);
+        List *l = dynamic_cast<List*>(_terms[index]);
         if(s) {
             return findStruct(s,term);
+        }
+        if(l) {
+            return findList(l,term);
         }
     }
     return nullptr;
@@ -87,14 +59,32 @@ Term* Parser::findStruct(Struct* s, Term* term){
     for(int i = 0; i < s->arity() ; i++){
         if(s->args(i)->symbol() == term->symbol()) return s->args(i);
         Struct * ss = dynamic_cast<Struct*>(s->args(i));
+        List * ll = dynamic_cast<List*>(s->args(i));
         if(ss) {
             return findStruct(ss,term);
         }
+        if(ll) {
+            return findList(ll,term);
+        }
     }
-  }
+}
 
-Node* Parser::expressionTree(){
-    return _expressionTree;
+Term* Parser::findList(List* l, Term* term){
+    for(int i = 0; i < l->arity() ; i++){
+        if(l->args(i)->symbol() == term->symbol()) return l->args(i);
+        Struct * ss = dynamic_cast<Struct*>(l->args(i));
+        List * ll = dynamic_cast<List*>(l->args(i));
+        if(ss) {
+            return findStruct(ss,term);
+        }
+        if(ll) {
+            return findList(ll,term);
+        }
+    }
+}
+
+Exp* Parser::expressionTree(){
+    return _expStack.top();
 }
 
 void Parser::createTerms(){
@@ -134,3 +124,66 @@ vector<Term*> Parser::getArgs()
     return args;
 }
 
+void Parser::buildExpression(){
+    if(_scanner.getBuffer().find(";.") != string::npos)
+        throw string("Unexpected ';' before '.'");
+    if(_scanner.getBuffer().find(",.") != string::npos)
+        throw string("Unexpected ',' before '.'");
+    disjunctionMatch();
+    restDisjunctionMatch();
+    if(createTerm() != nullptr || _currentToken != '.')
+        throw string("Missing token '.'");
+}
+
+void Parser::restDisjunctionMatch(){
+    if(_scanner.currentChar() == ';'){
+        isCOMMA = 0;
+        _newStartIndex = _expStack.size();
+        createTerm();
+        disjunctionMatch();
+        Exp *right = _expStack.top();
+        _expStack.pop();
+        Exp *left = _expStack.top();
+        _expStack.pop();
+        _expStack.push(new DisjExp(left, right));
+        restDisjunctionMatch();
+    }
+}
+
+void Parser::disjunctionMatch(){
+    conjunctionMatch();
+    restConjunctionMatch();
+}
+
+void Parser:: restConjunctionMatch(){
+    if(_scanner.currentChar() == ','){
+        isCOMMA = 1;
+        createTerm();
+        conjunctionMatch();
+        Exp *right = _expStack.top();
+        _expStack.pop();
+        Exp *left = _expStack.top();
+        _expStack.pop();
+        _expStack.push(new ConjExp(left, right));
+        restConjunctionMatch();
+    }
+}
+
+void Parser::conjunctionMatch(){
+    Term *left = createTerm();
+    if(isCOMMA == 1 && left != nullptr){
+        Term *findTerm = finding(left);
+        if(findTerm != nullptr){
+            left->match(*findTerm);
+        }
+    }
+    _terms.push_back(left);
+    if(createTerm() == nullptr && _currentToken == '='){
+        isCOMMA = 0;
+        Term *right = createTerm();
+        _terms.push_back(right);
+        _expStack.push(new MatchExp(left, right));
+    }
+    else
+        throw string(left->symbol() + " does never get assignment");
+}

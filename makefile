@@ -1,12 +1,21 @@
 #INC_DIR = include
 
-all: hw7
+all: hw8 shell
 
-hw7: mainTerm.o term.o atom.o variable.o number.o struct.o list.o parser.o scanner.o node.o iterator.o structIterator.o listIterator.o nullIterator.o dfsIterator.o bfsIterator.o
+hw8: mainTerm.o term.o atom.o variable.o number.o struct.o list.o parser.o scanner.o exp.o conjExp.o matchExp.o disjExp.o iterator.o structIterator.o listIterator.o nullIterator.o dfsIterator.o bfsIterator.o
 ifeq (${OS}, Windows_NT)
-	g++ -o hw7 mainTerm.o term.o atom.o variable.o number.o struct.o list.o parser.o scanner.o node.o iterator.o structIterator.o listIterator.o nullIterator.o dfsIterator.o bfsIterator.o -lgtest
+	g++ -o hw8 mainTerm.o term.o atom.o variable.o number.o struct.o list.o parser.o scanner.o exp.o conjExp.o matchExp.o disjExp.o iterator.o structIterator.o listIterator.o nullIterator.o dfsIterator.o bfsIterator.o -lgtest
 else
-	g++ -o hw7 mainTerm.o term.o atom.o variable.o number.o struct.o list.o parser.o scanner.o node.o iterator.o structIterator.o listIterator.o nullIterator.o dfsIterator.o bfsIterator.o -lgtest -lpthread
+	g++ -o hw8 mainTerm.o term.o atom.o variable.o number.o struct.o list.o parser.o scanner.o exp.o conjExp.o matchExp.o disjExp.o iterator.o structIterator.o listIterator.o nullIterator.o dfsIterator.o bfsIterator.o -lgtest -lpthread
+endif
+
+shell: shell.cpp term.o atom.o variable.o number.o struct.o list.o parser.o scanner.o exp.o conjExp.o matchExp.o disjExp.o iterator.o structIterator.o listIterator.o nullIterator.o dfsIterator.o bfsIterator.o
+ifeq (${OS}, Windows_NT)
+	g++ -c -std=gnu++0x shell.cpp
+	g++ -o shell shell.o term.o atom.o variable.o number.o struct.o list.o parser.o scanner.o exp.o conjExp.o matchExp.o disjExp.o iterator.o structIterator.o listIterator.o nullIterator.o dfsIterator.o bfsIterator.o -lgtest
+else
+	g++ -c -std=gnu++0x shell.cpp
+	g++ -o shell shell.o term.o atom.o variable.o number.o struct.o list.o parser.o scanner.o exp.o conjExp.o matchExp.o disjExp.o iterator.o structIterator.o listIterator.o nullIterator.o dfsIterator.o bfsIterator.o -lgtest -lpthread
 endif
 
 mainTerm.o: mainTerm.cpp utTerm.h
@@ -22,8 +31,14 @@ parser.o : parser.h parser.cpp
 	g++ -std=gnu++0x -c parser.cpp
 scanner.o : scanner.h scanner.cpp
 	g++ -std=gnu++0x -c scanner.cpp
-node.o: node.h node.cpp
-	g++ -std=gnu++0x -c node.cpp
+exp.o: exp.h exp.cpp
+	g++ -std=gnu++0x -c exp.cpp
+conjExp.o: conjExp.h conjExp.cpp
+	g++ -std=gnu++0x -c conjExp.cpp
+matchExp.o: matchExp.h matchExp.cpp
+	g++ -std=gnu++0x -c matchExp.cpp
+disjExp.o: disjExp.h disjExp.cpp
+	g++ -std=gnu++0x -c disjExp.cpp
 iterator.o: iterator.h iterator.cpp
 	g++ -std=gnu++0x -c iterator.cpp
 structIterator.o: structIterator.h structIterator.cpp
@@ -44,4 +59,4 @@ list.o : list.h list.cpp
 	g++ -std=gnu++0x -c list.cpp
 
 clean:
-	rm -f *.o hw7 mainTerm utStruct utVariable utList utParser utIterator
+	rm -f *.o hw8 shell mainTerm utStruct utVariable utList utParser utIterator
